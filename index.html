@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregrade - Learn Tech Skills</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --warning: #ff9e00;
+            --gradient: linear-gradient(135deg, #4361ee, #3a0ca3);
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ---------- HEADER ---------- */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ---------- COURSES ---------- */
+        .courses {
+            padding: 100px 0;
+        }
+
+        .courses-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .course-img {
+            height: 180px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-content h3 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .course-category {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* ---------- BACK TO TOP ---------- */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 768px) {
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                background: white;
+                position: absolute;
+                top: 65px;
+                right: 20px;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i> Pregrade
+                </div>
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Courses</a>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">About</a>
+                </div>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline">Login</button>
+                    <button class="btn btn-primary">Sign Up</button>
+                </div>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>Learn Tech Skills with Confidence 🚀</h1>
+            <p>Explore courses in Web Development, Data Science, and Design crafted by industry experts.</p>
+        </div>
+    </section>
+
+    <!-- COURSES -->
+    <section class="courses container">
+        <div class="courses-header">
+            <h2>Popular Courses</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="web">Web Dev</button>
+                <button class="filter-btn" data-category="data">Data Science</button>
+                <button class="filter-btn" data-category="design">Design</button>
+            </div>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card" data-category="web">
+                <div class="course-img"><i class="fas fa-code"></i></div>
+                <div class="course-content">
+                    <span class="course-category">Web Dev</span>
+                    <h3>HTML, CSS & JS Mastery</h3>
+                    <p>Learn the core of front-end development with hands-on projects.</p>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="data">
+                <div class="course-img"><i class="fas fa-database"></i></div>
+                <div class="course-content">
+                    <span class="course-category">Data Science</span>
+                    <h3>Python for Data Analysis</h3>
+                    <p>Master Python, Pandas, and visualization tools.</p>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="design">
+                <div class="course-img"><i class="fas fa-paint-brush"></i></div>
+                <div class="course-content">
+                    <span class="course-category">Design</span>
+                    <h3>UI/UX Fundamentals</h3>
+                    <p>Design intuitive and user-friendly digital experiences.</p>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="web">
+                <div class="course-img"><i class="fas fa-laptop-code"></i></div>
+                <div class="course-content">
+                    <span class="course-category">Web Dev</span>
+                    <h3>React & Modern Frontend</h3>
+                    <p>Build interactive web apps using React.js and modern JS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BACK TO TOP BUTTON -->
+    <div class="back-to-top"><i class="fas fa-arrow-up"></i></div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ---------- MOBILE MENU ----------
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const navLinks = document.querySelector(".nav-links");
+
+        mobileMenu.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        // ---------- BACK TO TOP ----------
+        const backToTop = document.querySelector(".back-to-top");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add("show");
+            } else {
+                backToTop.classList.remove("show");
+            }
+        });
+
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // ---------- FILTER COURSES ----------
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        const courseCards = document.querySelectorAll(".course-card");
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelector(".filter-btn.active").classList.remove("active");
+                btn.classList.add("active");
+
+                const category = btn.dataset.category;
+
+                courseCards.forEach(card => {
+                    if (category === "all" || card.dataset.category === category) {
+                        card.style.display = "block";
+                        card.style.opacity = "1";
+                    } else {
+                        card.style.display = "none";
+                        card.style.opacity = "0";
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
